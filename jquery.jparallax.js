@@ -331,7 +331,10 @@
 
 					// If mouse is inside, fire timer
 					if (mouseport.xinside && mouseport.yinside)  { if (!timer.running) timer.fire(localmouse.x, localmouse.y); }
-					else if (mouseport.active) { mouseport.active = false; }			
+					else if (mouseport.active) {
+						mouseport.active = false;
+						if (settings.mouseResetOutside) { timer.fire((localmouse.x = 0.5), (localmouse.y = 0.5)); }
+					}
 				});
 			}
 
@@ -379,6 +382,7 @@
 	jQuery.fn.jparallax.settings = {
 		mouseResponse:			true,	// Sets mouse response
 		mouseActiveOutside:		false,	// Makes mouse affect layers from outside of the mouseport. 
+		mouseResetOutside:		false,	// Reset parallax when mouse exits the mouseport.
 		triggerResponse:		true,	// Sets trigger response
 		triggerExposesEdges:	false,	// Sets whether the trigger pulls layer edges into view in trying to centre layer content.
 		xparallax:				true,	// Sets directions to move in
